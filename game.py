@@ -1,10 +1,7 @@
 from random import randint
 
-choices = ["rock", "paper", "scissors"]
-total_lives = 3
-player_lives = total_lives
-computer_lives = total_lives
-player_choice = False
+# re-import our game variables
+from gameComponents import gameVars
 
 # define a win / lose function and refer to it (invoke it) in our game loop
 def winorlose(status):
@@ -22,12 +19,8 @@ def winorlose(status):
 
         if choice == "Y" or choice == "y":
             # reset the game loop and start over again
-            global player_lives
-            global computer_lives
-            global total_lives
-
-            player_lives = total_lives
-            computer_lives = total_lives
+            gameVars.player_lives = gameVars.total_lives
+            gameVars.computer_lives = gameVars.total_lives
         elif choice == "N" or choice == "n":
             # exit message and quit
             print("You chose to quit. Better luck next time!")
@@ -36,50 +29,50 @@ def winorlose(status):
             print("Make a valid choice - Y or N")
             choice = False
 
-while player_choice is False:
+while gameVars.player_choice is False:
     print("==================*/ RPS GAME */====================")
-    print("Computer Lives:", computer_lives, "/", total_lives)
-    print("Player Lives:", player_lives, "/", total_lives)
+    print("Computer Lives:", gameVars.computer_lives, "/", gameVars.total_lives)
+    print("Player Lives:", gameVars.player_lives, "/", gameVars.total_lives)
     print("====================================================")
     print("Choose your weapon! Or type quit to exit\n") #\n means "new line"
-    player_choice = input("Choose rock, paper, or scissors: \n")
+    gameVars.player_choice = input("Choose rock, paper, or scissors: \n")
 
-    if player_choice == "quit":
+    if gameVars.player_choice == "quit":
         print("You chose to quit")
         exit()
 
-    computer_choice = choices[randint(0, 2)]
+    gameVars.computer_choice = gameVars.choices[randint(0, 2)]
 
-    print("user chose: " + player_choice)
-    print("computer chose: " + computer_choice)
+    print("user chose: " + gameVars.player_choice)
+    print("computer chose: " + gameVars.computer_choice)
 
-    if computer_choice == player_choice:
+    if gameVars.computer_choice == gameVars.player_choice:
         print("tie")
-    elif computer_choice == "rock":
-        if player_choice == "scissors":
-            player_lives -= 1
-            print("you lose! player lives:", player_lives)
+    elif gameVars.computer_choice == "rock":
+        if gameVars.player_choice == "scissors":
+            gameVars.player_lives -= 1
+            print("you lose! player lives:", gameVars.player_lives)
         else:
             print("you win!")
-            computer_lives -= 1
-    elif computer_choice == "paper":
-        if player_choice == "rock":
-            player_lives -= 1
-            print("you lose! player lives:", player_lives)
+            gameVars.computer_lives -= 1
+    elif gameVars.computer_choice == "paper":
+        if gameVars.player_choice == "rock":
+            gameVars.player_lives -= 1
+            print("you lose! player lives:", gameVars.player_lives)
         else:
             print("you win!")
-            computer_lives -= 1
-    elif computer_choice == "scissors":
-        if player_choice == "paper":
-            player_lives -= 1
-            print("you lose! player lives:", player_lives)
+            gameVars.computer_lives -= 1
+    elif gameVars.computer_choice == "scissors":
+        if gameVars.player_choice == "paper":
+            gameVars.player_lives -= 1
+            print("you lose! player lives:", gameVars.player_lives)
         else:
             print("you win!")
-            computer_lives -= 1
+            gameVars.computer_lives -= 1
 
-    if player_lives == 0:
+    if gameVars.player_lives == 0:
         winorlose("lost")
-    elif computer_lives == 0:
+    elif gameVars.computer_lives == 0:
         winorlose("won")
     else:
-        player_choice = False
+        gameVars.player_choice = False
